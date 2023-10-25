@@ -2,9 +2,12 @@
 
 # Source: https://learn.microsoft.com/en-us/azure/container-instances/container-instances-github-action?tabs=userlevel
 
-# Resource Group
+### AZ Env - General Setup:
+
+# Resource Group Creation:
 $RG = 'github-actions'
 $Loc = "EastUS2"
+$ACR = "ghacr90814"
 
 az group create --name $RG --location $loc
 
@@ -27,3 +30,11 @@ az ad sp create-for-rbac --scope $groupid --role Contributor --sdk-auth
   "managementEndpointUrl": "https://management.core.windows.net/"
 }
 
+# Bonus - show az sp info (live example):
+az ad sp show --id 16e3c10b-a8ae-4dd3-b355-f415465deb96
+
+# Create AZ Container Registry:
+az acr create -g $RG --name $ACR --sku standard --admin-enabled $true
+
+### 
+$regID = $(az acr show -g $RG --name $ACR --query id --output tsv)
