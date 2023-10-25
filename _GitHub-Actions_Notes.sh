@@ -41,3 +41,11 @@ $regID = $(az acr show -g $RG --name $ACR --query id --output tsv)
 
 ### Add AcrPush role to the SP:
 az role assignment create --assignee 16e3c10b-a8ae-4dd3-b355-f415465deb96 --scope $regID --role AcrPush
+
+# GH UI Steps:
+## Follow the Steps in the URL to Setup AZ RG Credentials in GitHub 
+
+## Create / Modify the GH Workflow File
+
+# View Container FQDN & ProvisioningState - Query:
+az container show -g $RG --name aci-sampleapp --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --output table
